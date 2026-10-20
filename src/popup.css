@@ -1,0 +1,152 @@
+/* The capture form: 360 wide, as tall as its content. */
+
+html, body { width: 360px; }
+body.windowed, html.windowed { width: auto; min-width: 360px; }
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  height: 46px;
+  padding: 0 8px 0 14px;
+  border-bottom: 1px solid var(--line);
+}
+.bar-title { flex: 1; min-width: 0; font-size: 13.5px; font-weight: 600; }
+
+main { padding: 12px 14px 14px; }
+
+form { display: flex; flex-direction: column; gap: 10px; }
+.field { min-width: 0; }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* The customer's words. */
+.quote {
+  position: relative;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--surface);
+  transition: border-color 150ms var(--ease);
+}
+.quote:hover { border-color: var(--muted); }
+.quote:focus-within { border-color: var(--focus); outline: 1px solid var(--focus); }
+.quote.invalid { border-color: var(--danger-text); }
+.quote-glyph {
+  position: absolute;
+  top: 2px;
+  left: 10px;
+  color: var(--glyph);
+  font: 600 44px/1 var(--sans);
+  pointer-events: none;
+  user-select: none;
+}
+.quote-text {
+  display: block;
+  width: 100%;
+  min-height: 76px;
+  max-height: 232px;
+  padding: 12px 12px 8px 38px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: 400 14px/1.5 var(--sans);
+  resize: none;
+  outline: none;
+}
+.quote-text::placeholder { color: var(--placeholder); font: 400 13px/1.5 var(--sans); }
+.quote-foot { display: flex; gap: 8px; padding: 0 12px 8px 38px; }
+.quote-foot:not(:has(> :not([hidden]))) { display: none; }
+.quote-foot .field-error, .quote-foot .hint { margin-top: 0; }
+.quote-foot .count { margin-left: auto; font-variant-numeric: tabular-nums; }
+.quote-foot .count.over { color: var(--danger-text); }
+
+.rating-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0 10px; }
+.rating-row .label { margin-bottom: 0; margin-right: auto; }
+.rating-row .field-error { flex-basis: 100%; }
+.stars { display: inline-flex; gap: 1px; }
+.star {
+  display: inline-flex;
+  padding: 3px;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  color: var(--star-empty);
+  cursor: pointer;
+}
+.star .icon { width: 20px; height: 20px; fill: currentColor; stroke: none; }
+.star.on { color: var(--star); }
+.rating-clear { font-size: 12px; font-weight: 400; color: var(--muted); }
+
+.source {
+  display: flex;
+  gap: 9px;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--sunken);
+  color: var(--muted);
+}
+.source > .icon { margin-top: 2px; }
+.source-body { min-width: 0; flex: 1; }
+.source-name {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  color: var(--text);
+  font: 500 13px/1.4 var(--sans);
+  outline: none;
+  text-overflow: ellipsis;
+}
+.source-name::placeholder { color: var(--placeholder); font-weight: 400; }
+.source-name:hover { border-bottom-color: var(--line-strong); }
+.source-name:focus { border-bottom-color: var(--focus); }
+.source-url {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.source-url:empty { display: none; }
+
+.actions { margin-top: 2px; }
+.actions .btn { min-height: 36px; font-size: 13.5px; }
+.foot { margin-top: 7px; text-align: center; }
+
+/* Loading, not connected, blocked and saved share one centered layout. */
+.state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 26px 12px 14px;
+  text-align: center;
+}
+#view-loading { padding: 64px 0; color: var(--muted); }
+.state-mark {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 12px;
+  color: var(--brand-700);
+  stroke-width: 1.5;
+}
+.saved-mark { stroke-width: 2; }
+@media (prefers-color-scheme: dark) {
+  .state-mark { color: var(--brand-400); }
+}
+.state-title { font-size: 15px; font-weight: 600; line-height: 1.35; overflow-wrap: anywhere; }
+.state-text { max-width: 290px; margin-top: 6px; color: var(--muted); }
+.state-note {
+  max-width: 290px;
+  margin-top: 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--sunken);
+  color: var(--text-soft);
+  font-size: 12px;
+}
+.state > .btn, .state-actions { margin-top: 18px; }
+.state-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }

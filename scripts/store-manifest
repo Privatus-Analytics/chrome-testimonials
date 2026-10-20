@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Reads src/manifest.json on stdin and writes the manifest of the zip for
+# the Chrome Web Store on stdout: the same file without the optional local
+# hosts (localhost, 127.0.0.1) and without the local addresses in the
+# connect-src of its content security policy. The published extension
+# reaches https://privatusanalytics.com only. The unpacked copy of src/
+# keeps them, for development against a local server.
+#
+#   scripts/store-manifest < src/manifest.json > manifest.json
+#
+# Fails, and writes nothing, when the result still names a local host.
+set -euo pipefail
+
+store=$(sed -e '/"optional_host_permissions"/d' \
+            -e 's# http://localhost:\* http://127\.0\.0\.1:\*##')
+
+if ! grep -q '"manifest_version"' <<< "$store"; then
+  echo "No manifest on stdin" >&2
+  exit 1
+fi
+
+if grep -Eq 'localhost|127\.0\.0\.1|optional_host' <<< "$store"; then
+  echo "The store manifest still names a local host" >&2
+  exit 1
+fi
+
+printf '%s\n' "$store"

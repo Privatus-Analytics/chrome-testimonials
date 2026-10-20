@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+# Builds the zip that is uploaded to the Chrome Web Store: the shipped
+# files only (no tests, no README, no package.json), and prints its size
+# and the manifest version.
+#
+#   integrations/chrome-testimonials/scripts/package
+#
+# The zip lands in integrations/chrome-testimonials/dist/, which is not
+# committed. Everything under src/ ships, and nothing else, except the
+# manifest: the zip's copy has no optional localhost hosts and no local
+# connect-src (scripts/store-manifest, security finding A03-304). The
+# unpacked src/ keeps them for development.
+set -euo pipefail
+
+cd "$(dirname "$0")/../src"
+
+version=$(sed -n 's/^[[:space:]]*"version":[[:space:]]*"\([^"]*\)".*/\1/p' manifest.json | head -n 1)
+if [ -z "$version" ]; then
+  echo "No version in manifest.json" >&2
+  exit 1
+fi
+
+shipped=(
+  manifest.json
+  background.js
+  popup.html popup.js popup.css
+  options.html options.js options.css
+  ui.css
+  lib
+  data
+  icons
+  _locales
+)
+
+for path in "${shipped[@]}"; do
+  if [ ! -e "$path" ]; then
+    echo "Missing: $path" >&2
+    exit 1
+  fi
+done
+
+here=$(cd .. && pwd)
+mkdir -p "$here/dist"
+zip_path="$here/dist/privatus-capture-a-testimonial-$version.zip"
+rm -f "$zip_path"
+
+stage=$(mktemp -d)
+trap 'rm -rf "$stage"' EXIT
+cp -R "${shipped[@]}" "$stage"/
+"$here/scripts/store-manifest" < manifest.json > "$stage/manifest.json"
+(cd "$stage" && zip -r -q -X "$zip_path" "${shipped[@]}" -x '*.DS_Store')
+
+bytes=$(wc -c < "$zip_path" | tr -d ' ')
+files=$(unzip -Z1 "$zip_path" | grep -vc '/$')
+echo "version  $version"
+echo "file     integrations/chrome-testimonials/dist/${zip_path##*/}"
+echo "size     $bytes bytes ($((bytes / 1024)) KB), $files files"

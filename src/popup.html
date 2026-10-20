@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en" data-title="popup_title">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privatus Analytics</title>
+  <link rel="stylesheet" href="ui.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <svg class="sprite" aria-hidden="true">
+    <symbol id="i-cog" viewBox="0 0 24 24"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19 12l2-1-2-4-2 1-2-2V4h-4v2L9 7 7 6 5 10l2 1v2l-2 1 2 4 2-1 2 1v2h4v-2l2-1 2 1 2-4-2-1z"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM3 12h18M12 3c2.5 2.6 3.5 5.6 3.5 9s-1 6.4-3.5 9c-2.5-2.6-3.5-5.6-3.5-9s1-6.4 3.5-9z"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></symbol>
+    <symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 4l9 16H3zM12 10v4M12 17h.01"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><path d="M7.5 21a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM21 2l-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></symbol>
+    <symbol id="i-quote" viewBox="0 0 24 24"><path d="M10 7H6a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h2v1a2 2 0 0 1-2 2M20 7h-4a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h2v1a2 2 0 0 1-2 2"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"/></symbol>
+  </svg>
+
+  <header class="bar">
+    <img class="tile" src="icons/icon-48.png" width="22" height="22" alt="">
+    <h1 class="bar-title" data-i18n="popup_title"></h1>
+    <button type="button" class="btn btn-icon" id="open-options" data-i18n-title="open_settings" data-i18n-aria-label="open_settings">
+      <svg class="icon"><use href="#i-cog"/></svg>
+    </button>
+  </header>
+
+  <main>
+    <!-- Reading the page and the stored connection. -->
+    <section id="view-loading" class="state">
+      <span class="spinner" role="status" data-i18n-aria-label="loading"></span>
+    </section>
+
+    <!-- No token yet. -->
+    <section id="view-connect" class="state" hidden>
+      <svg class="icon state-mark"><use href="#i-quote"/></svg>
+      <h2 class="state-title" data-i18n="connect_title"></h2>
+      <p class="state-text" data-i18n="connect_text"></p>
+      <button type="button" class="btn btn-primary" id="connect-open" data-i18n="connect_button"></button>
+    </section>
+
+    <!-- A token that cannot be used to save: it sees no site. -->
+    <section id="view-blocked" class="state" hidden>
+      <svg class="icon state-mark"><use href="#i-key"/></svg>
+      <h2 class="state-title" id="blocked-title"></h2>
+      <p class="state-text" id="blocked-text"></p>
+      <p class="state-note" id="blocked-note" hidden></p>
+      <div class="state-actions">
+        <button type="button" class="btn btn-primary" id="blocked-open" data-i18n="open_settings"></button>
+        <button type="button" class="btn btn-secondary" id="blocked-retry" data-i18n="try_again"></button>
+      </div>
+    </section>
+
+    <!-- The capture form. -->
+    <form id="view-form" novalidate hidden>
+      <div id="form-error" class="notice" role="alert" hidden>
+        <svg class="icon"><use href="#i-warning"/></svg>
+        <div class="notice-body">
+          <p id="form-error-text"></p>
+          <div id="form-error-notes"></div>
+          <div class="notice-actions" id="form-error-actions" hidden>
+            <button type="button" class="link-button" id="save-anyway" data-i18n="save_anyway" hidden></button>
+            <button type="button" class="link-button" id="error-open-options" data-i18n="open_settings" hidden></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote">
+        <span class="quote-glyph" aria-hidden="true">&ldquo;</span>
+        <label class="sr-only" for="words" data-i18n="words_label"></label>
+        <textarea id="words" class="quote-text" rows="3" spellcheck="true" data-i18n-placeholder="words_placeholder"></textarea>
+        <p class="quote-foot">
+          <span id="words-error" class="field-error" hidden></span>
+          <span id="words-count" class="hint count" hidden></span>
+        </p>
+      </div>
+
+      <div class="field">
+        <label class="label" for="person-name" data-i18n="name_label"></label>
+        <input id="person-name" class="input" type="text" maxlength="120" autocomplete="off" data-i18n-placeholder="name_placeholder">
+        <p id="person-name-error" class="field-error" hidden></p>
+      </div>
+
+      <div class="pair">
+        <div class="field">
+          <label class="label" for="person-title"><span data-i18n="title_label"></span> <span class="optional" data-i18n="optional"></span></label>
+          <input id="person-title" class="input" type="text" maxlength="120" autocomplete="off">
+          <p id="person-title-error" class="field-error" hidden></p>
+        </div>
+        <div class="field">
+          <label class="label" for="person-company"><span data-i18n="company_label"></span> <span class="optional" data-i18n="optional"></span></label>
+          <input id="person-company" class="input" type="text" maxlength="120" autocomplete="off">
+          <p id="person-company-error" class="field-error" hidden></p>
+        </div>
+      </div>
+
+      <div class="field rating-row">
+        <span class="label" id="rating-label"><span data-i18n="rating_label"></span> <span class="optional" data-i18n="optional"></span></span>
+        <div class="stars" id="rating" role="radiogroup" aria-labelledby="rating-label">
+          <button type="button" class="star" role="radio" aria-checked="false" data-value="1" data-i18n-aria-label="rating_1"><svg class="icon"><use href="#i-star"/></svg></button>
+          <button type="button" class="star" role="radio" aria-checked="false" data-value="2" data-i18n-aria-label="rating_2"><svg class="icon"><use href="#i-star"/></svg></button>
+          <button type="button" class="star" role="radio" aria-checked="false" data-value="3" data-i18n-aria-label="rating_3"><svg class="icon"><use href="#i-star"/></svg></button>
+          <button type="button" class="star" role="radio" aria-checked="false" data-value="4" data-i18n-aria-label="rating_4"><svg class="icon"><use href="#i-star"/></svg></button>
+          <button type="button" class="star" role="radio" aria-checked="false" data-value="5" data-i18n-aria-label="rating_5"><svg class="icon"><use href="#i-star"/></svg></button>
+        </div>
+        <button type="button" class="link-button rating-clear" id="rating-clear" data-i18n="rating_clear" hidden></button>
+        <p id="rating-error" class="field-error" hidden></p>
+      </div>
+
+      <div class="source">
+        <svg class="icon"><use href="#i-globe"/></svg>
+        <div class="source-body">
+          <label class="sr-only" for="source-name" data-i18n="source_label"></label>
+          <input id="source-name" class="source-name" type="text" maxlength="120" autocomplete="off" data-i18n-placeholder="source_placeholder">
+          <p id="source-url" class="source-url"></p>
+          <p id="source-name-error" class="field-error" hidden></p>
+          <p id="source-url-error" class="field-error" hidden></p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="site" data-i18n="site_label"></label>
+        <select id="site" class="input"></select>
+        <p id="site-error" class="field-error" hidden></p>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn btn-primary btn-block" id="save">
+          <span class="spinner" id="save-spinner" hidden></span>
+          <span id="save-label" data-i18n="save"></span>
+        </button>
+        <p class="hint foot" data-i18n="save_hint"></p>
+      </div>
+    </form>
+
+    <!-- Saved. -->
+    <section id="view-saved" class="state" hidden>
+      <svg class="icon state-mark saved-mark"><use href="#i-check"/></svg>
+      <h2 class="state-title" id="saved-title"></h2>
+      <p class="state-text"><span class="badge" data-i18n="status_pending"></span></p>
+      <p class="state-text" data-i18n="saved_text"></p>
+      <div class="state-actions">
+        <a class="btn btn-primary" id="saved-link" target="_blank" rel="noopener">
+          <span data-i18n="saved_open"></span>
+          <svg class="icon"><use href="#i-external"/></svg>
+        </a>
+        <button type="button" class="btn btn-secondary" id="saved-close" data-i18n="close"></button>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "@privatus/chrome-testimonials",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Privatus Analytics: capture a testimonial. A Manifest V3 extension for Chrome. Not shipped: this file only tells Node that the files are ES modules, so the tests run with Node's built-in runner. There are no dependencies and nothing to install.",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test",
+    "package": "scripts/package"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "comment": "Which pages belong to a platform the app knows. Keys and names mirror TestimonialSourceHelper::PLATFORMS (app/helpers/testimonial_source_helper.rb), and spec/config/chrome_extension_data_spec.rb fails when the two differ. A host matches itself and its subdomains. host_pattern is a regular expression tested against the whole host name.",
+  "platforms": [
+    { "key": "trustpilot", "name": "Trustpilot", "hosts": ["trustpilot.com"] },
+    { "key": "g2", "name": "G2", "hosts": ["g2.com"] },
+    { "key": "capterra", "name": "Capterra", "hosts": ["capterra.com"], "host_pattern": "^(www\\.)?capterra\\.(com?\\.)?[a-z]{2,3}$" },
+    { "key": "product_hunt", "name": "Product Hunt", "hosts": ["producthunt.com"] },
+    { "key": "x", "name": "X", "hosts": ["x.com", "twitter.com"] },
+    { "key": "app_sumo", "name": "AppSumo", "hosts": ["appsumo.com"] },
+    { "key": "tripadvisor", "name": "Tripadvisor", "hosts": ["tripadvisor.com"], "host_pattern": "^(www\\.)?tripadvisor\\.(com?\\.)?[a-z]{2,3}$" },
+    { "key": "chrome_web_store", "name": "Chrome Web Store", "hosts": ["chromewebstore.google.com"] },
+    { "key": "shopify_app_store", "name": "Shopify App Store", "hosts": ["apps.shopify.com"] },
+    { "key": "wordpress", "name": "WordPress plugin directory", "hosts": ["wordpress.org"] },
+    { "key": "apple_app_store", "name": "Apple App Store", "hosts": ["apps.apple.com"] },
+    { "key": "google_play", "name": "Google Play", "hosts": ["play.google.com"] },
+    { "key": "senja", "name": "Senja", "hosts": ["senja.io"] },
+    { "key": "testimonial_to", "name": "Testimonial.to", "hosts": ["testimonial.to"] }
+  ]
+}

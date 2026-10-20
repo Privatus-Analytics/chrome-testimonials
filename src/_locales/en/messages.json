@@ -1,0 +1,356 @@
+{
+  "extension_name": {
+    "message": "Privatus Analytics: capture a testimonial",
+    "description": "The name in the Chrome Web Store and on the extensions page. At most 75 characters."
+  },
+  "extension_short_name": {
+    "message": "Privatus Analytics",
+    "description": "The name where space is tight."
+  },
+  "extension_description": {
+    "message": "Select what a customer said on any page and save it to Privatus Analytics as a pending testimonial, with the page as its source.",
+    "description": "The summary in the Chrome Web Store. At most 132 characters."
+  },
+  "action_title": {
+    "message": "Save as a testimonial",
+    "description": "The tooltip of the toolbar button."
+  },
+  "menu_save": {
+    "message": "Save as a testimonial",
+    "description": "The item in the menu of a text selection."
+  },
+  "brand": {
+    "message": "Privatus Analytics",
+    "description": "The product name."
+  },
+  "popup_title": {
+    "message": "Save a testimonial",
+    "description": "The heading of the capture form."
+  },
+  "open_settings": {
+    "message": "Open settings"
+  },
+  "loading": {
+    "message": "Loading"
+  },
+  "try_again": {
+    "message": "Try again"
+  },
+  "close": {
+    "message": "Close"
+  },
+  "optional": {
+    "message": "(optional)",
+    "description": "After the label of a field that may stay empty."
+  },
+  "connect_title": {
+    "message": "Connect your account"
+  },
+  "connect_text": {
+    "message": "Customers praise you on pages you do not control. Connect once, and saving what they said takes two clicks.",
+    "description": "Shown in the popup before a token is pasted."
+  },
+  "connect_button": {
+    "message": "Connect"
+  },
+  "words_label": {
+    "message": "What they said"
+  },
+  "words_placeholder": {
+    "message": "Select the words on the page first, or paste them here."
+  },
+  "words_unreadable": {
+    "message": "Chrome does not let extensions read this page. Paste the words here.",
+    "description": "On Chrome's own pages and the Chrome Web Store."
+  },
+  "words_count": {
+    "message": "$1 of $2 characters",
+    "description": "$1 is the length so far, $2 the most the app stores."
+  },
+  "name_label": {
+    "message": "Who said it"
+  },
+  "name_placeholder": {
+    "message": "Their name"
+  },
+  "title_label": {
+    "message": "Job title"
+  },
+  "company_label": {
+    "message": "Company"
+  },
+  "rating_label": {
+    "message": "Rating"
+  },
+  "rating_1": {
+    "message": "1 star"
+  },
+  "rating_2": {
+    "message": "2 stars"
+  },
+  "rating_3": {
+    "message": "3 stars"
+  },
+  "rating_4": {
+    "message": "4 stars"
+  },
+  "rating_5": {
+    "message": "5 stars"
+  },
+  "rating_clear": {
+    "message": "Clear",
+    "description": "Removes the rating."
+  },
+  "source_label": {
+    "message": "Where it came from"
+  },
+  "source_placeholder": {
+    "message": "Where it came from"
+  },
+  "site_label": {
+    "message": "Site",
+    "description": "The label of the menu of sites. A site is a website the workspace has in Privatus Analytics, and its testimonials belong to it."
+  },
+  "save": {
+    "message": "Save as pending"
+  },
+  "saving": {
+    "message": "Saving"
+  },
+  "save_hint": {
+    "message": "It arrives as pending. Nothing is shown anywhere until you approve it."
+  },
+  "save_anyway": {
+    "message": "Save it anyway",
+    "description": "After the app said this person already said these words."
+  },
+  "status_pending": {
+    "message": "Pending",
+    "description": "The state of a testimonial nobody has approved or rejected yet."
+  },
+  "saved_title": {
+    "message": "Saved to $1",
+    "description": "$1 is the name of the site."
+  },
+  "saved_text": {
+    "message": "It is in the Inbox of that site. Approve it there when you want to show it."
+  },
+  "saved_open": {
+    "message": "Open in Privatus Analytics"
+  },
+  "blocked_title": {
+    "message": "That did not work"
+  },
+  "blocked_no_sites_title": {
+    "message": "No site to save to"
+  },
+  "blocked_token_title": {
+    "message": "Connect again"
+  },
+  "blocked_offline_title": {
+    "message": "No connection"
+  },
+  "error_unexpected": {
+    "message": "Something went wrong in the extension. Close this and try again."
+  },
+  "error_offline": {
+    "message": "Privatus Analytics could not be reached. Check your connection and try again."
+  },
+  "error_token_rejected": {
+    "message": "Privatus Analytics did not accept the token. It may have expired or been revoked. Connect again with a new one.",
+    "description": "HTTP 401."
+  },
+  "error_plan_limit": {
+    "message": "The plan of this workspace does not allow that.",
+    "description": "HTTP 402. The app's own sentence follows."
+  },
+  "error_no_read": {
+    "message": "This token cannot list sites. Create a token with the analytics.read permission and connect again.",
+    "description": "HTTP 403 on the list of sites."
+  },
+  "error_no_sites": {
+    "message": "This token does not reach any site. Create a token that includes the site you want, or add a site in Privatus Analytics."
+  },
+  "error_no_write": {
+    "message": "This token is not allowed to add testimonials to this site.",
+    "description": "HTTP 403 on saving. The app's own sentence follows."
+  },
+  "error_site_gone": {
+    "message": "That site was not found. It may have been deleted, or the token may no longer reach it. Pick another site.",
+    "description": "HTTP 404 on saving."
+  },
+  "error_not_found": {
+    "message": "Privatus Analytics responded that this does not exist. Try again in a moment.",
+    "description": "HTTP 404 anywhere else."
+  },
+  "error_locked": {
+    "message": "This workspace is locked, so nothing can be added right now.",
+    "description": "HTTP 423. The app's own sentence follows."
+  },
+  "error_rate_limited": {
+    "message": "Too many requests in a short time. Wait a minute and try again.",
+    "description": "HTTP 429."
+  },
+  "error_server": {
+    "message": "Privatus Analytics responded with an error ($1). Try again in a moment.",
+    "description": "$1 is the HTTP status."
+  },
+  "error_allowance": {
+    "message": "This workspace has used its allowance of new testimonials for this month, so this one was not saved. Save it again after the 1st, or as soon as the plan is upgraded.",
+    "description": "HTTP 422 with the code allowance_reached. The app refuses what a member adds at the allowance. It holds only what a customer sends through a form."
+  },
+  "error_duplicate": {
+    "message": "This person already said these words on this site.",
+    "description": "HTTP 422 with the code duplicate."
+  },
+  "error_invalid": {
+    "message": "Privatus Analytics did not accept this.",
+    "description": "HTTP 422. The app's own sentences follow."
+  },
+  "error_words_needed": {
+    "message": "Add the words they said."
+  },
+  "error_words_too_long": {
+    "message": "That is more than $1 characters. Keep the part worth quoting.",
+    "description": "$1 is the limit."
+  },
+  "error_name_needed": {
+    "message": "Add the name of the person who said it."
+  },
+  "error_too_long": {
+    "message": "Use up to $1 characters.",
+    "description": "$1 is the limit."
+  },
+  "error_site_needed": {
+    "message": "Pick a site."
+  },
+  "error_token_needed": {
+    "message": "Paste a token first."
+  },
+  "error_address_invalid": {
+    "message": "That is not an address."
+  },
+  "error_address_not_allowed": {
+    "message": "Only privatusanalytics.com and a local address (http://localhost or http://127.0.0.1) can be used."
+  },
+  "error_address_refused": {
+    "message": "Chrome was not given permission for that address, so it cannot be used."
+  },
+  "options_title": {
+    "message": "Privatus Analytics: capture a testimonial",
+    "description": "The title of the settings tab."
+  },
+  "options_subtitle": {
+    "message": "Capture what customers say, from any page."
+  },
+  "connected_title": {
+    "message": "Your account"
+  },
+  "connected_chip": {
+    "message": "Connected"
+  },
+  "fact_account": {
+    "message": "Account"
+  },
+  "fact_workspace": {
+    "message": "Workspace"
+  },
+  "fact_sites": {
+    "message": "Sites"
+  },
+  "fact_saving": {
+    "message": "Saving"
+  },
+  "fact_token": {
+    "message": "Token"
+  },
+  "fact_address": {
+    "message": "Address"
+  },
+  "sites_one": {
+    "message": "$1 site",
+    "description": "$1 is 1."
+  },
+  "sites_many": {
+    "message": "$1 sites",
+    "description": "$1 is a number other than 1."
+  },
+  "sites_unreadable": {
+    "message": "The token cannot list sites"
+  },
+  "saving_yes": {
+    "message": "This token can add testimonials"
+  },
+  "saving_no": {
+    "message": "This token cannot add testimonials. Create one with the content.write permission."
+  },
+  "saving_no_sites": {
+    "message": "There is no site to save to yet. Add one in Privatus Analytics, then check again."
+  },
+  "saving_no_read": {
+    "message": "Nothing can be saved without the analytics.read permission. Create a token that has it."
+  },
+  "check_again": {
+    "message": "Check again"
+  },
+  "disconnect": {
+    "message": "Disconnect"
+  },
+  "step_open": {
+    "message": "In Privatus Analytics, open the workspace settings, then API tokens, and create a token."
+  },
+  "step_open_link": {
+    "message": "Open Privatus Analytics"
+  },
+  "step_permissions": {
+    "message": "Give it these two permissions:"
+  },
+  "permission_read": {
+    "message": "to list your sites",
+    "description": "After the permission name analytics.read."
+  },
+  "permission_write": {
+    "message": "to add testimonials",
+    "description": "After the permission name content.write."
+  },
+  "step_sites_hint": {
+    "message": "You can limit the token to some sites. Only those are offered when you save."
+  },
+  "step_paste": {
+    "message": "Paste the token here."
+  },
+  "token_placeholder": {
+    "message": "Your API token"
+  },
+  "token_hint": {
+    "message": "The token stays in this browser and is sent only to Privatus Analytics."
+  },
+  "advanced_title": {
+    "message": "For developers"
+  },
+  "address_label": {
+    "message": "Address of Privatus Analytics"
+  },
+  "address_hint": {
+    "message": "Leave it empty for privatusanalytics.com. A local address such as http://localhost:3008 also works. Chrome asks for your permission first."
+  },
+  "promise_title": {
+    "message": "What this extension does, and what it does not"
+  },
+  "promise_click": {
+    "message": "It reads a page only when you click its button or its menu item, and only that page."
+  },
+  "promise_only_us": {
+    "message": "It sends what you save to Privatus Analytics, and talks to nothing else."
+  },
+  "promise_no_tracking": {
+    "message": "It has no analytics, no ads and no cookies."
+  },
+  "promise_disconnect": {
+    "message": "Disconnect removes the token and everything else it kept in this browser."
+  },
+  "version": {
+    "message": "Version $1",
+    "description": "$1 is the version number."
+  }
+}

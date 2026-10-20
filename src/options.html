@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en" data-title="options_title">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privatus Analytics</title>
+  <link rel="stylesheet" href="ui.css">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <svg class="sprite" aria-hidden="true">
+    <symbol id="i-cog" viewBox="0 0 24 24"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19 12l2-1-2-4-2 1-2-2V4h-4v2L9 7 7 6 5 10l2 1v2l-2 1 2 4 2-1 2 1v2h4v-2l2-1 2 1 2-4-2-1z"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM3 12h18M12 3c2.5 2.6 3.5 5.6 3.5 9s-1 6.4-3.5 9c-2.5-2.6-3.5-5.6-3.5-9s1-6.4 3.5-9z"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/></symbol>
+    <symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 4l9 16H3zM12 10v4M12 17h.01"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><path d="M7.5 21a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM21 2l-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"/></symbol>
+  </svg>
+
+  <main class="page">
+    <header class="masthead">
+      <img class="tile" src="icons/icon-128.png" width="36" height="36" alt="">
+      <div>
+        <h1 class="masthead-title" data-i18n="brand"></h1>
+        <p class="masthead-sub" data-i18n="options_subtitle"></p>
+      </div>
+    </header>
+
+    <div id="notice" class="notice" role="alert" hidden>
+      <svg class="icon"><use href="#i-warning"/></svg>
+      <div class="notice-body">
+        <p id="notice-text"></p>
+        <div id="notice-notes"></div>
+      </div>
+    </div>
+
+    <!-- Connected: whose token it is and what it may do. -->
+    <section id="connected" class="card" hidden>
+      <div class="card-head">
+        <h2 class="card-title" data-i18n="connected_title"></h2>
+        <span class="chip"><svg class="icon"><use href="#i-check"/></svg><span data-i18n="connected_chip"></span></span>
+      </div>
+      <dl class="facts">
+        <div class="fact">
+          <dt data-i18n="fact_account"></dt>
+          <dd><span id="fact-name" class="strong"></span><span id="fact-email" class="soft"></span></dd>
+        </div>
+        <div class="fact">
+          <dt data-i18n="fact_workspace"></dt>
+          <dd><span id="fact-workspace" class="strong"></span></dd>
+        </div>
+        <div class="fact">
+          <dt data-i18n="fact_sites"></dt>
+          <dd><span id="fact-sites" class="strong"></span><span id="fact-site-names" class="soft"></span></dd>
+        </div>
+        <div class="fact">
+          <dt data-i18n="fact_saving"></dt>
+          <dd id="fact-saving"></dd>
+        </div>
+        <div class="fact">
+          <dt data-i18n="fact_token"></dt>
+          <dd><code id="fact-token"></code></dd>
+        </div>
+        <div class="fact" id="fact-address-row" hidden>
+          <dt data-i18n="fact_address"></dt>
+          <dd><code id="fact-address"></code></dd>
+        </div>
+      </dl>
+      <div class="card-foot">
+        <button type="button" class="btn btn-secondary" id="recheck">
+          <span class="spinner" id="recheck-spinner" hidden></span><span data-i18n="check_again"></span>
+        </button>
+        <button type="button" class="btn btn-danger" id="disconnect">
+          <svg class="icon"><use href="#i-x"/></svg><span data-i18n="disconnect"></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Not connected: how to make a token, and where to paste it. -->
+    <form id="connect" class="card" novalidate hidden>
+      <div class="card-head">
+        <h2 class="card-title" data-i18n="connect_title"></h2>
+      </div>
+      <ol class="steps">
+        <li>
+          <p><span data-i18n="step_open"></span> <a id="open-app" target="_blank" rel="noopener" data-i18n="step_open_link"></a></p>
+        </li>
+        <li>
+          <p data-i18n="step_permissions"></p>
+          <ul class="permissions">
+            <li><code>analytics.read</code><span data-i18n="permission_read"></span></li>
+            <li><code>content.write</code><span data-i18n="permission_write"></span></li>
+          </ul>
+          <p class="hint" data-i18n="step_sites_hint"></p>
+        </li>
+        <li>
+          <label for="token" data-i18n="step_paste"></label>
+          <div class="token-row">
+            <input id="token" class="input mono" type="password" autocomplete="off" spellcheck="false" autocapitalize="off" data-i18n-placeholder="token_placeholder">
+            <button type="submit" class="btn btn-primary" id="connect-button">
+              <span class="spinner" id="connect-spinner" hidden></span><span id="connect-label" data-i18n="connect_button"></span>
+            </button>
+          </div>
+          <p id="token-error" class="field-error" hidden></p>
+          <p class="hint" data-i18n="token_hint"></p>
+        </li>
+      </ol>
+
+      <details class="advanced" id="advanced">
+        <summary data-i18n="advanced_title"></summary>
+        <label class="label" for="address" data-i18n="address_label"></label>
+        <input id="address" class="input mono" type="url" autocomplete="off" spellcheck="false" placeholder="https://privatusanalytics.com">
+        <p id="address-error" class="field-error" hidden></p>
+        <p class="hint" data-i18n="address_hint"></p>
+      </details>
+    </form>
+
+    <section class="card plain">
+      <h2 class="card-title" data-i18n="promise_title"></h2>
+      <ul class="promises">
+        <li><svg class="icon"><use href="#i-check"/></svg><span data-i18n="promise_click"></span></li>
+        <li><svg class="icon"><use href="#i-check"/></svg><span data-i18n="promise_only_us"></span></li>
+        <li><svg class="icon"><use href="#i-check"/></svg><span data-i18n="promise_no_tracking"></span></li>
+        <li><svg class="icon"><use href="#i-check"/></svg><span data-i18n="promise_disconnect"></span></li>
+      </ul>
+    </section>
+
+    <p class="version" id="version"></p>
+  </main>
+
+  <script type="module" src="options.js"></script>
+</body>
+</html>
