@@ -1,5 +1,5 @@
 {
-  "name": "@privatus/chrome-testimonials",
+  "name": "@privatus-analytics/chrome-testimonials",
   "version": "0.1.0",
   "private": true,
   "type": "module",
