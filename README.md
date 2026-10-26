@@ -7,7 +7,7 @@ with the page as its source.
 > **It is not published yet, and until it is, nothing a customer reads may
 > mention it**: not the app, the docs in `content/docs/`, the marketing
 > pages, the emails or a locale file. `spec/config/chrome_extension_unnamed_spec.rb`
-> fails otherwise. Publishing is James's step: `docs/deploy/chrome-extension.md`.
+> fails otherwise. Publishing is a manual step: `docs/deploy/chrome-extension.md`.
 
 It is a different extension from `../browser-extension` ("Block my
 visits"), and shares no code with it.
